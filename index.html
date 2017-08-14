@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset = "utf-8">
+<script src = "http://d3js.org/d3.v4.js"></script>
+<script>
+d3.csv("../data/airports.csv", function(error,data) {
+	if(error) console.log("Whoops.",error);
+	data.forEach(function(d) {
+    d.id = +d.id;
+    d.latitude = +d.Latitude;
+    d.longitude = +d.Longitude;
+    d.altitude = +d.Altitude;
+    d.timezone = +d.Timezone;
+  });
+
+var data_sorted = data.filter(function(d) {return d.Country == "India"})
+					.sort(function(d) {return d3.ascending(d.altitude)})
+					.filter(function(d) {return d.altitude > 3000})
+
+console.log(data_sorted)
+					
+meanAlt = d3.mean(data_sorted, function(d) {return d.altitude})
+console.log(meanAlt)
+
+});
+
+</script>
+
